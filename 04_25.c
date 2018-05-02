@@ -10,8 +10,11 @@ void q_4_4(void);
 void q_4_5(void);
 void q_4_6(void);
 void q_4_7(void);
+void q_5_6(void);
+void q_5_7(void);
 int facto(int n);
 int gcd(int A, int B);
+void flip(int * A, int * B);
 static inline char isMultiple(int A, int B) {return (A%B)==0;} // Returns TRUE if A is a multiple of B, FALSE otherwise
 
 int main(int argc, char *argv[]) {
@@ -30,6 +33,10 @@ int main(int argc, char *argv[]) {
       q_4_6();
     else if(!strcmp(argv[1], "4.7"))
       q_4_7();
+    else if(!strcmp(argv[1], "5.6"))
+      q_5_6();
+    else if(!strcmp(argv[1], "5.7"))
+      q_5_7();
     else
       printf("This question number doesn't exist...\n\r");
   }
@@ -44,7 +51,7 @@ void q_4_1(void) {
   printf("Please enter n\n\r");
   int ret, n;
   ret = scanf("%d", &n);
-  if(ret == 0)
+  if(ret == 0) // The format d
     printf("Please type an integer\n\r");
   else
     printf("Result : %d\n\r", facto(n));  
@@ -153,6 +160,40 @@ void q_4_7(void) {
   printf("It will take %d years and %d months\r\n", months/12, months%12);    
 }
 
+void q_5_6(void) {
+  printf("\n\r### Exercise 5.6 ###\r\n");
+  printf("Please enter each student's grade:\n\r");
+  float grade[10] = {0,};
+  for(int i=0; i<10; i++) {
+    printf("Student %d:\t", i);
+    int ret;
+    ret = scanf("%f", &grade[i]);
+    if(ret == 0) {
+      printf("Please type an number\n\r");
+      i--;
+    }
+  }
+  printf("\n\r------ Sorting ------\n\r");
+  int student_order[10] = {0,1,2,3,4,5,6,7,8,9};
+  for(int i=0; i<10; i++) {
+    int * max = &student_order[i];
+    for(int j=i; j<10; j++) {
+      if(grade[student_order[j]]>grade[*max]) {
+        flip(&student_order[j], max);
+        /* flip(&student_order[j], min_ind); */
+      }
+    }
+  }
+  for(int i=0; i<10; i++) {
+    printf("student %d: %f\n\r", student_order[i], grade[student_order[i]]);
+  }
+}
+
+void q_5_7(void) {
+  printf("\n\r### Exercise 5.7 ###\r\n");
+  
+}
+
 int facto(int n) {
   int result = 1;
   for(int i=1;i<=n;i++)
@@ -177,3 +218,9 @@ int gcd(int A, int B) {
   return A;
 }
 
+void flip(int * A, int * B) {
+  int temp;
+  temp = *A;
+  *A = *B;
+  *B = temp;
+}
