@@ -191,7 +191,28 @@ void q_5_6(void) {
 
 void q_5_7(void) {
   printf("\n\r### Exercise 5.7 ###\r\n");
-  
+   printf("Please enter each student's grade:\n\r");
+  float grade[100] = {0,};
+  int n=0;
+  while(n<100) {
+    printf("Student %d:\t", n);
+    int ret;
+    ret = scanf("%f", &grade[n]);
+    if(ret == 0) {
+      printf("Please type an number\n\r");
+      n--;
+    }
+    if(grade[n] < 0)
+      break;
+    n++;
+  }
+  int histo[10] = {0,};
+  for(int i=0; i<10; i++) {
+    histo[(unsigned int)grade[i]/10]++;
+  }
+  for(int i=0; i<n; i++) {
+    printf("%d<=grade<%d: %d\n\r", i*10, (i+1)*10, histo[i]);
+  }
 }
 
 int facto(int n) {
